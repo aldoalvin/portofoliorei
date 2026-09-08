@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyek 1 - Point Of Sales(POS)</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1><span class="highlight">Rei</span> Portofolio</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </nav>
+    <main>
+        <div class="container">
+            <h1>Detail Proyek: Point Of Sales (POS)</h1>
+            
+            <div class="project-detail">
+                <p>
+                    POS ini dirancang khusus untuk membantu Usaha Mikro, Kecil, dan Menengah (UMKM) dalam mengelola transaksi penjualan, stok produk, serta laporan penjualan harian, mingguan, dan bulanan secara efisien.
+                    POS ini dilengkapi dengan dashboard yang mudah digunakan dan dapat diakses melalui berbagai perangkat. 
+                    POS yang saya buat ini menggunakan HTML sebagai strukturnya, CSS untuk desainnya, Javascript yang membuat lebih dinamis seperti memasukkan data barang ke keranjang, menghitung total harga barang dan sebagainya.
+                </p>
+                <p style="color:rgb(255, 72, 0);"><b>Catatan:</b> POS ini merupakan produk yang dibuat untuk lomba dengan fitur dasar yang sudah berfungsi dengan baik.</p>
+                
+<div class="highlight-box">
+                    <p><strong>Fitur Utama:</strong></p>
+                    <ul>
+                        <li>Manajemen Produk dan Stok secara real-time</li>
+                        <li>Proses Transaksi Penjualan yang cepat dan akurat</li>
+                        <li>Pembuatan Laporan Penjualan dengan berbagai periode waktu</li>
+                        <li>Antarmuka pengguna yang intuitif dan responsif</li>
+                        <li>Dukungan multi-perangkat (desktop, tablet, mobile)</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem; color: var(--primary-color);">Galeri Foto Proyek</h3>
+                <div class="image-grid">
+                    <img src="projects/project 1/proyek1.png" alt="Dashboard Sistem Kasir" class="preview-img">
+                    <img src="projects/project 1/proyek1-barang.png" alt="Manajemen Produk" class="preview-img">
+                    <img src="projects/project 1/proyek1-transaksi.png" alt="Transaksi Penjualan" class="preview-img">
+                    <img src="projects/project 1/proyek1-laporan.png" alt="Laporan Keuangan" class="preview-img">
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for image preview -->
+        <div id="imgModal" class="modal">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <img class="modal-content" id="modalImg">
+            <div class="modal-caption" id="modalCaption"></div>
+            <div class="modal-controls">
+                <button class="modal-button" id="prevBtn">&#10094;</button>
+                <button class="modal-button" id="nextBtn">&#10095;</button>
+                <button class="modal-button" id="zoomOutBtn">-</button>
+                <button class="modal-button" id="zoomInBtn">+</button>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>Copyright © <span id="year"></span> Reinaldo Alvin Santoso.</p>
+    </footer>
+
+    <script>
+        // Image preview modal script with next, previous, and zoom functionality
+        const modal = document.getElementById("imgModal");
+        const modalImg = document.getElementById("modalImg");
+        const modalCaption = document.getElementById("modalCaption");
+        const modalClose = document.getElementById("modalClose");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const zoomInBtn = document.getElementById("zoomInBtn");
+        const zoomOutBtn = document.getElementById("zoomOutBtn");
+        const images = Array.from(document.querySelectorAll(".preview-img"));
+        let currentIndex = 0;
+        let zoomLevel = 1;
+         // Ambil tahun saat ini
+        const currentYear = new Date().getFullYear();
+        // Masukkan ke elemen dengan id 'year'
+        document.getElementById("year").textContent = currentYear;
+
+        function showImage(index) {
+            if (index < 0) index = images.length - 1;
+            if (index >= images.length) index = 0;
+            
+            currentIndex = index;
+            modalImg.src = images[index].src;
+            modalCaption.textContent = images[index].alt;
+            zoomLevel = 1;
+            modalImg.style.transform = `scale(${zoomLevel})`;
+            
+            // Show modal with animation
+            modal.classList.add("show");
+        }
+
+        // Event listeners for images
+        images.forEach((img, index) => {
+            img.addEventListener("click", () => showImage(index));
+        });
+
+        // Close modal
+        modalClose.addEventListener("click", () => {
+            modal.classList.remove("show");
+        });
+
+        // Close when clicking outside image
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.classList.remove("show");
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener("keydown", (e) => {
+            if (modal.classList.contains("show")) {
+                switch(e.key) {
+                    case "ArrowRight":
+                        showImage(currentIndex + 1);
+                        break;
+                    case "ArrowLeft":
+                        showImage(currentIndex - 1);
+                        break;
+                    case "Escape":
+                        modal.classList.remove("show");
+                        break;
+                    case "+":
+                        zoomImage(0.5);
+                        break;
+                    case "-":
+                        zoomImage(-0.5);
+                        break;
+                }
+            }
+        });
+
+        // Button controls
+        nextBtn.addEventListener("click", () => showImage(currentIndex + 1));
+        prevBtn.addEventListener("click", () => showImage(currentIndex - 1));
+
+        // Zoom functionality
+        function zoomImage(amount) {
+            zoomLevel += amount;
+            if (zoomLevel < 1) zoomLevel = 1;
+            if (zoomLevel > 3) zoomLevel = 3;
+            modalImg.style.transform = `scale(${zoomLevel})`;
+        }
+
+        zoomInBtn.addEventListener("click", () => zoomImage(0.5));
+        zoomOutBtn.addEventListener("click", () => zoomImage(-0.5));
+    </script>
+
+</body>
+</html>

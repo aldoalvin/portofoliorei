@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyek 3 - Sistem Presensi Digital</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1><span class="highlight">Rei</span> Portofolio</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </nav>
+    <main>
+        <div class="container">
+            <h1>Detail Proyek: Sistem Presensi Digital</h1>
+            <div class="project-detail">
+                            <p>
+                                Sistem presensi digital ini menggunakan 2 komponen utama yaitu ESP32 CH340 sebagai kontroler dari hardware, modul NFC PN532 sebagai pembaca kartu. Lalu sistem ini dilengkapi juga 
+                                dengan komponen LED merah sebagai penanda kegagalan terjadi, LED hijau sebagai penanda perangkat sudah terkoneksi dengan internet dan presensi berhasil, Passive Buzzer sebagai 
+                                suara untuk melengkapi LED karena tidak semua orang perhatian dengan LED. Kegagalannya meliputi UID kartu yang tidak terdaftar, karena koneksi internet yang lambat atau ada masalah di database.
+                                Saat uji coba alat ini, modul juga bisa membaca KTP elektronik.
+                            </p>
+                            <p style="color:rgb(255, 72, 0);"><b>Catatan:</b> Sistem presensi ini merupakan produk penelitian tugas akhir saya.</p>
+                            
+                <div class="highlight-box">
+                    <p><strong>Fitur Utama:</strong></p>
+                    <ul>
+                        <li>Presensi menggunakan kartu Flazz atau kartu yang sejenis</li>
+                        <li>Admin bisa rekap presensi dalam 1 bulan</li>
+                        <li>Admin bisa melihat daftar siswa</li>
+                        <li>Admin bisa export rekap presensi ke dalam bentuk excel</li>
+                        <li>Siswa bisa melihat history presensi</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem; color: var(--primary-color);">Galeri Foto Proyek</h3>
+                <div class="image-grid">
+                    <img src="projects/project 3/Login Presensi.png" alt="Login" class="preview-img">
+                    <img src="projects/project 3/Dashboard Admin.png" alt="Dashboard Admin" class="preview-img">
+                    <img src="projects/project 3/Dashboard Siswa.png" alt="Dashboard Siswa" class="preview-img">
+                    <img src="projects/project 3/Rekap Presensi Bulanan.png" alt="Riwayat Presensi" class="preview-img">
+                    <img src="projects/project 3/Daftar Siswa.png" alt="Daftar Siswa" class="preview-img">
+                    <img src="projects/project 3/hardware.jpeg" alt="Hardware" class="preview-img">
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for image preview -->
+        <div id="imgModal" class="modal">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <div class="modal-caption" id="modalCaption"></div>
+            <img class="modal-content" id="modalImg">
+            <div class="modal-controls">
+                <button class="modal-button" id="prevBtn">&#10094;</button>
+                <button class="modal-button" id="nextBtn">&#10095;</button>
+                <button class="modal-button" id="zoomOutBtn">-</button>
+                <button class="modal-button" id="zoomInBtn">+</button>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>Copyright © <span id="year"></span> Reinaldo Alvin Santoso.</p>
+    </footer>
+
+    <script>
+        // Image preview modal script with next, previous, and zoom functionality
+        const modal = document.getElementById("imgModal");
+        const modalImg = document.getElementById("modalImg");
+        const modalCaption = document.getElementById("modalCaption");
+        const modalClose = document.getElementById("modalClose");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const zoomInBtn = document.getElementById("zoomInBtn");
+        const zoomOutBtn = document.getElementById("zoomOutBtn");
+        const images = Array.from(document.querySelectorAll(".preview-img"));
+        let currentIndex = 0;
+        let zoomLevel = 1;
+         // Ambil tahun saat ini
+        const currentYear = new Date().getFullYear();
+        // Masukkan ke elemen dengan id 'year'
+        document.getElementById("year").textContent = currentYear;
+
+        function showImage(index) {
+            if (index < 0) index = images.length - 1;
+            if (index >= images.length) index = 0;
+            
+            currentIndex = index;
+            modalImg.src = images[index].src;
+            modalCaption.textContent = images[index].alt;
+            zoomLevel = 1;
+            modalImg.style.transform = `scale(${zoomLevel})`;
+            
+            // Show modal with animation
+            modal.classList.add("show");
+        }
+
+        // Event listeners for images
+        images.forEach((img, index) => {
+            img.addEventListener("click", () => showImage(index));
+        });
+
+        // Close modal
+        modalClose.addEventListener("click", () => {
+            modal.classList.remove("show");
+        });
+
+        // Close when clicking outside image
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.classList.remove("show");
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener("keydown", (e) => {
+            if (modal.classList.contains("show")) {
+                switch(e.key) {
+                    case "ArrowRight":
+                        showImage(currentIndex + 1);
+                        break;
+                    case "ArrowLeft":
+                        showImage(currentIndex - 1);
+                        break;
+                    case "Escape":
+                        modal.classList.remove("show");
+                        break;
+                    case "+":
+                        zoomImage(0.5);
+                        break;
+                    case "-":
+                        zoomImage(-0.5);
+                        break;
+                }
+            }
+        });
+
+        // Button controls
+        nextBtn.addEventListener("click", () => showImage(currentIndex + 1));
+        prevBtn.addEventListener("click", () => showImage(currentIndex - 1));
+
+        // Zoom functionality
+        function zoomImage(amount) {
+            zoomLevel += amount;
+            if (zoomLevel < 1) zoomLevel = 1;
+            if (zoomLevel > 3) zoomLevel = 3;
+            modalImg.style.transform = `scale(${zoomLevel})`;
+        }
+
+        zoomInBtn.addEventListener("click", () => zoomImage(0.5));
+        zoomOutBtn.addEventListener("click", () => zoomImage(-0.5));
+    </script>
+
+</body>
+</html>

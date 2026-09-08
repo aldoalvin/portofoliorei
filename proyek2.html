@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyek 2 - Puzzle Game Coding</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1><span class="highlight">Rei</span> Portofolio</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </nav>
+    <main>
+        <div class="container">
+            <h1>Detail Proyek: Puzzle Game Coding</h1>
+            
+<div class="project-detail">
+                <p>
+                    Logic Paradox adalah sebuah proyek pembelajaran coding menggunakan bahasa Python. 
+                    Proyek ini terdiri dari 10 level, dimana setiap level merupakan tantangan yang dirancang untuk meningkatkan kemampuan pemrograman secara bertahap.
+                    Game ini menggunakan HTML sebagai strukturnya, CSS untuk desainnya dan Javascript yang membuat lebih dinamis.
+                </p>
+                <p style="color:rgb(255, 72, 0);"><b>Catatan:</b> Logic Paradox merupakan karya saya di ekstrakurikuler Informatika Lanjut.</p>
+                
+<div class="highlight-box">
+                    <p><strong>Fitur Utama:</strong></p>
+                    <ul>
+                        <li>Pengajaran bahasa pemrograman Python secara bertahap</li>
+                        <li>10 level tantangan yang meningkatkan kemampuan coding</li>
+                        <li>Tantangan yang dirancang untuk mengasah logika dan pemecahan masalah</li>
+                        <li>Antarmuka yang user-friendly dan mudah digunakan</li>
+                        <li>Materi pembelajaran yang interaktif dan menyenangkan</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem; color: var(--primary-color);">Galeri Foto Proyek</h3>
+                <div class="image-grid">
+                    <img src="projects/project 2/Puzzle-home.png" alt="Home" class="preview-img">
+                    <img src="projects/project 2/Puzzle-level.png" alt="Level" class="preview-img">
+                    <img src="projects/project 2/Puzzle-level1start.png" alt="Level 1 start" class="preview-img">
+                    <img src="projects/project 2/Puzzle-level1.png" alt="Level 1" class="preview-img">
+                    <img src="projects/project 2/Puzzle-level2.png" alt="Level 2" class="preview-img">
+                    <img src="projects/project 2/Puzzle-level3.png" alt="Level 3" class="preview-img">
+                    <img src="projects/project 2/Puzzle-level4.png" alt="Level 4" class="preview-img">
+                    <img src="projects/project 2/Puzzle-level5.png" alt="Level 5" class="preview-img">
+                    <img src="projects/project 2/Puzzle-level6.png" alt="Level 6" class="preview-img">
+                    <img src="projects/project 2/Puzzle-level7.png" alt="Level 7" class="preview-img">
+                    <img src="projects/project 2/Puzzle-level8.png" alt="Level 8" class="preview-img">
+                    <img src="projects/project 2/Puzzle-level9.png" alt="Level 9" class="preview-img">
+                    <img src="projects/project 2/Puzzle-level10.png" alt="Level 10" class="preview-img">
+                    <img src="projects/project 2/Puzzle-end.png" alt="End" class="preview-img">
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for image preview -->
+        <div id="imgModal" class="modal">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <img class="modal-content" id="modalImg">
+            <div class="modal-caption" id="modalCaption"></div>
+            <div class="modal-controls">
+                <button class="modal-button" id="prevBtn">&#10094;</button>
+                <button class="modal-button" id="nextBtn">&#10095;</button>
+                <button class="modal-button" id="zoomOutBtn">-</button>
+                <button class="modal-button" id="zoomInBtn">+</button>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>Copyright © <span id="year"></span> Reinaldo Alvin Santoso.</p>
+    </footer>
+
+    <script>
+        // Image preview modal script with next, previous, and zoom functionality
+        const modal = document.getElementById("imgModal");
+        const modalImg = document.getElementById("modalImg");
+        const modalCaption = document.getElementById("modalCaption");
+        const modalClose = document.getElementById("modalClose");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const zoomInBtn = document.getElementById("zoomInBtn");
+        const zoomOutBtn = document.getElementById("zoomOutBtn");
+        const images = Array.from(document.querySelectorAll(".preview-img"));
+        let currentIndex = 0;
+        let zoomLevel = 1;
+         // Ambil tahun saat ini
+        const currentYear = new Date().getFullYear();
+        // Masukkan ke elemen dengan id 'year'
+        document.getElementById("year").textContent = currentYear;
+
+        function showImage(index) {
+            if (index < 0) index = images.length - 1;
+            if (index >= images.length) index = 0;
+            
+            currentIndex = index;
+            modalImg.src = images[index].src;
+            modalCaption.textContent = images[index].alt;
+            zoomLevel = 1;
+            modalImg.style.transform = `scale(${zoomLevel})`;
+            
+            // Show modal with animation
+            modal.classList.add("show");
+        }
+
+        // Event listeners for images
+        images.forEach((img, index) => {
+            img.addEventListener("click", () => showImage(index));
+        });
+
+        // Close modal
+        modalClose.addEventListener("click", () => {
+            modal.classList.remove("show");
+        });
+
+        // Close when clicking outside image
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.classList.remove("show");
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener("keydown", (e) => {
+            if (modal.classList.contains("show")) {
+                switch(e.key) {
+                    case "ArrowRight":
+                        showImage(currentIndex + 1);
+                        break;
+                    case "ArrowLeft":
+                        showImage(currentIndex - 1);
+                        break;
+                    case "Escape":
+                        modal.classList.remove("show");
+                        break;
+                    case "+":
+                        zoomImage(0.5);
+                        break;
+                    case "-":
+                        zoomImage(-0.5);
+                        break;
+                }
+            }
+        });
+
+        // Button controls
+        nextBtn.addEventListener("click", () => showImage(currentIndex + 1));
+        prevBtn.addEventListener("click", () => showImage(currentIndex - 1));
+
+        // Zoom functionality
+        function zoomImage(amount) {
+            zoomLevel += amount;
+            if (zoomLevel < 1) zoomLevel = 1;
+            if (zoomLevel > 3) zoomLevel = 3;
+            modalImg.style.transform = `scale(${zoomLevel})`;
+        }
+
+        zoomInBtn.addEventListener("click", () => zoomImage(0.5));
+        zoomOutBtn.addEventListener("click", () => zoomImage(-0.5));
+    </script>
+
+</body>
+</html>
