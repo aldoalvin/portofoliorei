@@ -25,7 +25,7 @@
         </nav>
         
         <main>
-            <header>
+            <header id="profil">
                 <div class="profile" id="profil">
                     <img src="images/Profil.jpg" alt="Foto Reinaldo Alvin Santoso">
                     <div>
@@ -212,6 +212,89 @@
             const currentYear = new Date().getFullYear();
             // Masukkan ke elemen dengan id 'year'
             document.getElementById("year").textContent = currentYear;
+
+            // 2. FITUR TAMBAHAN (SCROLLSPY & SCROLL REVEAL)
+
+            // Scrollspy (Menandai Menu Navbar yang Aktif)
+            const navLinks = document.querySelectorAll('.navbar nav a');
+            const sections = document.querySelectorAll('header, section');
+
+            function updateActiveNavbar() {
+                let current = '';
+                const scrollPosition = window.scrollY;
+                const windowHeight = window.innerHeight;
+                const fullHeight = document.documentElement.scrollHeight;
+
+                // 1. Jika di posisi paling atas (Profil)
+                if (scrollPosition < 200) {
+                    current = 'profil';
+                } 
+                // 2. Jika sudah scroll sampai paling bawah (Kontak)
+                else if (scrollPosition + windowHeight >= fullHeight - 50) {
+                    current = 'kontak';
+                } 
+                // 3. Untuk section di tengah-tengah
+                else {
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop - 120;
+                        const sectionHeight = section.clientHeight;
+                        const sectionId = section.getAttribute('id');
+
+                        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                            if (sectionId) current = sectionId;
+                        }
+                    });
+                }
+
+                // Update class active pada navbar
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            // Panggil saat pertama kali dimuat/refresh & saat di-scroll
+            window.addEventListener('load', updateActiveNavbar);
+            window.addEventListener('scroll', updateActiveNavbar);
+
+            // Scroll Reveal (Animasi Muncul Bertahap saat Elemen Di-scroll)
+            const revealElements = document.querySelectorAll('section, .project-card, .pendidikan-panel, .panel, .sertifikat-card, .kontak-card');
+
+            // Tambahkan class .scroll-reveal ke elemen-elemen target
+            revealElements.forEach(el => el.classList.add('scroll-reveal'));
+
+            // Deteksi saat elemen masuk ke layar
+            const revealOnScroll = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            revealElements.forEach(el => revealOnScroll.observe(el));
+
+            // Smooth Scroll Pelan & Lembut saat Menu Navbar Diklik
+            document.querySelectorAll('.navbar nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Mengatur posisi scroll dengan offset navbar (100px)
+                        const targetPosition = targetElement.offsetTop -750000;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
         </script>
     </body>
     </html>
