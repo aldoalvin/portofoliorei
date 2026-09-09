@@ -1,4 +1,6 @@
-/* Reset and Base Styles */
+/* ==========================================
+   1. RESET & BASE STYLES
+   ========================================== */
 * {
     margin: 0;
     padding: 0;
@@ -6,14 +8,18 @@
 }
 
 :root {
-    --primary: #4a90e2; /* new primary color - blue */
-    --secondary: #357ABD; /* new secondary color - darker blue */
-    --light: #f0f4f8; /* light background */
-    --dark: #222222; /* dark text */
-    --accent: #f5a623; /* accent color - orange */
+    --primary: #4a90e2;   /* Primary color - Blue */
+    --secondary: #357ABD; /* Secondary color - Darker Blue */
+    --light: #f0f4f8;     /* Light background */
+    --dark: #222222;      /* Dark text */
+    --accent: #f5a623;    /* Accent color - Orange */
     --white: #ffffff;
     --shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     --transition: all 0.3s ease;
+}
+
+html {
+    scroll-behavior: smooth; /* Smooth scroll global */
 }
 
 body {
@@ -39,7 +45,9 @@ main {
     margin-top: auto;
 }
 
-/* Typography */
+/* ==========================================
+   2. TYPOGRAPHY & LAYOUT
+   ========================================== */
 h1, h2, h3 {
     font-weight: 700;
     margin-bottom: 1rem;
@@ -65,7 +73,6 @@ h2::after {
     border-radius: 3px;
 }
 
-/* Layout Components */
 .container {
     width: 100%;
     max-width: 1100px;
@@ -75,10 +82,12 @@ h2::after {
 
 section {
     padding: 70px 0;
-    text-align: center; /* memastikan semua heading section (termasuk Sertifikat) ter-center */
+    text-align: center;
 }
 
-/* Navbar */
+/* ==========================================
+   3. NAVBAR & SCROLLSPY
+   ========================================== */
 .navbar {
     background: var(--dark);
     color: var(--white);
@@ -137,26 +146,18 @@ section {
     width: 100%;
 }
 
-.navbar nav a::before {
-    content: '';
-    position: absolute;
+/* Style Indikator Menu Aktif (Scrollspy) */
+.navbar nav a.active {
+    color: var(--accent);
+}
+
+.navbar nav a.active::after {
     width: 100%;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: var(--accent);
-    visibility: hidden;
-    transform: scaleX(0);
-    transition: all 0.3s ease-in-out;
-    border-radius: 2px;
 }
 
-.navbar nav a:hover::before {
-    visibility: visible;
-    transform: scaleX(1);
-}
-
-/* Header */
+/* ==========================================
+   4. HEADER & PROFILE
+   ========================================== */
 header {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: var(--white);
@@ -194,7 +195,9 @@ header {
     margin-bottom: 1.2rem;
 }
 
-/* Buttons */
+/* ==========================================
+   5. BUTTONS
+   ========================================== */
 .btn {
     display: inline-block;
     background: var(--accent);
@@ -215,7 +218,11 @@ header {
     box-shadow: 0 8px 20px rgba(211, 84, 0, 0.5);
 }
 
-/* About Section */
+/* ==========================================
+   6. SECTIONS (TENTANG, PENDIDIKAN, SKILL, PROYEK)
+   ========================================== */
+
+/* Tentang Saya */
 .tentang-saya {
     background: var(--white);
     text-align: center;
@@ -241,7 +248,7 @@ header {
     font-weight: 700;
 }
 
-/* Education Section */
+/* Pendidikan */
 .pendidikan {
     background: var(--light);
     margin: 30px;
@@ -252,7 +259,7 @@ header {
 
 .pendidikan-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Default 4 kolom sejajar di desktop */
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
     margin-top: 2.5rem;
 }
@@ -303,7 +310,7 @@ header {
     font-weight: 600;
 }
 
-/* Skills Section */
+/* Skills */
 .skill {
     background: var(--white);
     margin: 30px;
@@ -327,7 +334,7 @@ header {
     box-shadow: var(--shadow);
     transition: var(--transition);
     border: 1px solid #ddd;
-    overflow: hidden; /* jaga-jaga supaya logo tak pernah tumpah keluar kotak */
+    overflow: hidden;
 }
 
 .panel:hover {
@@ -338,9 +345,9 @@ header {
 
 .skill-logo {
     width: auto;
-    max-width: 100%; /* cegah logo PHP/SQL melebar keluar panel */
+    max-width: 100%;
     height: 100px;
-    object-fit: contain; /* jaga rasio logo tetap proporsional */
+    object-fit: contain;
     margin-bottom: 1.2rem;
 }
 
@@ -349,7 +356,7 @@ header {
     color: var(--accent);
 }
 
-/* Projects Section */
+/* Proyek */
 .proyek {
     background: var(--light);
     margin: 30px;
@@ -411,7 +418,7 @@ header {
     box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4);
 }
 
-/* Certificate Section */
+/* Sertifikat */
 .sertifikat {
     background: var(--white);
     margin: 20px;
@@ -422,10 +429,10 @@ header {
 
 .sertifikat-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 280px)); /* Mengunci ukuran kartu */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 280px));
     gap: 1.5rem;
     margin-top: 2.5rem;
-    justify-content: center; /* biar grid kartu ikut center saat cuma 1-2 kartu / layar sempit */
+    justify-content: center;
 }
 
 .sertifikat-card {
@@ -435,7 +442,7 @@ header {
     box-shadow: var(--shadow);
     transition: var(--transition);
     border: 1px solid #e0e0e0;
-    text-align: left; /* isi kartu tetap rata kiri, biar enak dibaca */
+    text-align: left;
 }
 
 .sertifikat-card:hover {
@@ -448,7 +455,7 @@ header {
     height: 160px;
     object-fit: cover;
     border-bottom: 2px solid var(--primary);
-    cursor: pointer; /* Memberikan indikator bisa diklik */
+    cursor: pointer;
     transition: transform 0.3s ease;
 }
 
@@ -478,7 +485,7 @@ header {
     color: #555;
 }
 
-/* kontak section */
+/* Kontak */
 .kontak {
     background: var(--white);
     margin: 30px auto;
@@ -487,7 +494,7 @@ header {
     border-radius: 15px;
     padding: 40px 25px;
     box-shadow: var(--shadow);
-    text-align: center; /* Memastikan judul dan tombol di tengah */
+    text-align: center;
 }
 
 .kontak-grid {
@@ -495,14 +502,14 @@ header {
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 1.5rem;
     margin-top: 2rem;
-    margin-bottom: 2.5rem; /* Memberi jarak ke tombol Hubungi Saya */
+    margin-bottom: 2.5rem;
     justify-content: center;
 }
 
 .kontak-card {
     background: var(--light);
     border-radius: 12px;
-    padding: 1.2rem 1.5rem; /* Padding di dalam kartu agar teks bernapas */
+    padding: 1.2rem 1.5rem;
     box-shadow: var(--shadow);
     transition: var(--transition);
     border: 1px solid #e0e0e0;
@@ -510,7 +517,7 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    word-break: break-word; /* Agar alamat email panjang tidak tembus keluar kotak */
+    word-break: break-word;
 }
 
 .kontak-card:hover {
@@ -550,7 +557,9 @@ header {
     margin-top: 0.5rem;
 }
 
-/* Main Section Styles for proyek1.html */
+/* ==========================================
+   7. PROYEK DETAIL & MODAL STYLES
+   ========================================== */
 main .project-detail {
     margin-top: 1.5rem;
     font-size: 1.1rem;
@@ -597,7 +606,7 @@ main .preview-img:hover {
     transform: scale(1.05);
 }
 
-/* Modal Styles - Diperbaiki menggunakan Flexbox untuk penataan persis di tengah */
+/* Modal Window */
 .modal {
     display: none;
     position: fixed;
@@ -609,8 +618,6 @@ main .preview-img:hover {
     overflow: auto;
     background-color: rgba(0,0,0,0.8);
     transition: opacity 0.3s ease;
-
-    /* Menggunakan Flexbox untuk memosisikan modal presisi di tengah layar */
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -623,7 +630,7 @@ main .preview-img:hover {
 }
 
 .modal-content {
-    margin: 0; /* Margin atas 80px dihilangkan agar gambar naik ke tengah */
+    margin: 0;
     display: block;
     max-width: 80%;
     max-height: 80vh;
@@ -682,10 +689,76 @@ main .preview-img:hover {
     background-color: #d17e00;
 }
 
-/* Responsive Design */
+/* ==========================================
+   8. ANIMASI PROFILE & SCROLL REVEAL
+   ========================================== */
+@keyframes profilePop {
+    0% {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+    80% {
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes profileFade {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile img {
+    animation: profilePop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.profile h1 {
+    opacity: 0;
+    animation: profileFade 0.6s ease-out 0.3s forwards;
+}
+
+.profile p {
+    opacity: 0;
+    animation: profileFade 0.6s ease-out 0.5s forwards;
+}
+
+.profile text {
+    opacity: 0;
+    animation: profileFade 0.6s ease-out 0.7s forwards;
+}
+
+header .btn {
+    opacity: 0;
+    animation: profileFade 0.6s ease-out 0.9s forwards;
+}
+
+/* Scroll Reveal Effects */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================
+   9. RESPONSIVE DESIGN
+   ========================================== */
 @media (max-width: 1024px) {
     .pendidikan-container {
-        grid-template-columns: repeat(2, 1fr); /* 2 kolom di Layar Sedang / Tablet */
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -693,11 +766,11 @@ main .preview-img:hover {
     .navbar {
         flex-direction: column;
         padding: 0.8rem 1rem;
-        height: auto; /* diubah dari 5rem fix -> auto, biar bisa nampung menu 2 baris */
+        height: auto;
     }
 
     .navbar nav ul {
-        flex-wrap: wrap; /* menu turun baris kalau tidak muat, tidak lagi terpotong */
+        flex-wrap: wrap;
         justify-content: center;
         gap: 0.5rem 1rem;
         margin-top: 0.5rem;
@@ -708,12 +781,12 @@ main .preview-img:hover {
     }
 
     header {
-        padding: 130px 5% 40px; /* dinaikkan supaya tidak ketutup navbar yang lebih tinggi */
+        padding: 130px 5% 40px;
         border-radius: 0;
     }
 
     main {
-        padding-top: 8.5rem; /* disesuaikan karena navbar sekarang bisa 2 baris */
+        padding-top: 8.5rem;
     }
 
     .profile img {
@@ -746,13 +819,13 @@ main .preview-img:hover {
 
 @media (max-width: 600px) {
     .pendidikan-container {
-        grid-template-columns: 1fr; /* 1 kolom penuh di Layar HP */
+        grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 480px) {
     .navbar {
-        height: auto; /* diubah dari 7rem fix -> auto */
+        height: auto;
         padding: 0.8rem;
     }
 
@@ -773,11 +846,11 @@ main .preview-img:hover {
     }
 
     header {
-        padding: 110px 5% 30px; /* dinaikkan menyesuaikan navbar auto-height */
+        padding: 110px 5% 30px;
     }
 
     main {
-        padding-top: 7.5rem; /* disesuaikan */
+        padding-top: 7.5rem;
     }
 
     .grid {
@@ -797,58 +870,4 @@ main .preview-img:hover {
         margin: 20px 5px;
         padding: 15px 10px;
     }
-}
-
-/* ==========================================
-   ANIMASI PROFILE (OPSI 2: POP & ZOOM)
-   ========================================== */
-
-@keyframes profilePop {
-    0% {
-        opacity: 0;
-        transform: scale(0.6);
-    }
-    80% {
-        transform: scale(1.05);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes profileFade {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Terapkan ke masing-masing elemen di dalam .profile */
-.profile img {
-    animation: profilePop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-.profile h1 {
-    opacity: 0;
-    animation: profileFade 0.6s ease-out 0.3s forwards;
-}
-
-.profile p {
-    opacity: 0;
-    animation: profileFade 0.6s ease-out 0.5s forwards;
-}
-
-.profile text {
-    opacity: 0;
-    animation: profileFade 0.6s ease-out 0.7s forwards;
-}
-
-header .btn {
-    opacity: 0;
-    animation: profileFade 0.6s ease-out 0.9s forwards;
 }
