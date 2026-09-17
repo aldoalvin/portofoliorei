@@ -26,7 +26,7 @@
         
         <main>
             <header id="profil">
-                <div class="profile" id="profil">
+                <div class="profile">
                     <img src="images/Profil.jpg" alt="Foto Reinaldo Alvin Santoso">
                     <div>
                         <h1>Reinaldo Alvin Santoso</h1>
@@ -292,8 +292,9 @@
                     const targetElement = document.querySelector(targetId);
                     
                     if (targetElement) {
-                        // Mengatur posisi scroll dengan offset navbar (100px)
-                        const targetPosition = targetElement.offsetTop -750000;
+                        // Mengatur offset navbar (sesuaikan 80 dengan tinggi navbar HP kamu)
+                        const navbarHeight = document.querySelector('.navbar').offsetHeight || 80;
+                        const targetPosition = targetElement.offsetTop - navbarHeight;
                         
                         window.scrollTo({
                             top: targetPosition,
